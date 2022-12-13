@@ -13,32 +13,42 @@ void printArray(int arr[], int sz)
 // Input options
 
 // 1. Read from keyboard
-void readArrayFromKeyBoard(int arr[], int sz)
+void readArrayFromKeyBoard(int arr[], int *sz)
 {
-    for (int i = 1; i <= sz; i++)
+    int sizeInput;
+    printf("Hay nhap so luong phan tu cua day can sap xep: ");
+    cin >> sizeInput;
+    for (int i = 1; i <= sizeInput; i++)
     {
         printf("Elements no %d: \n", i);
         scanf("%d", &arr[i]);
     }
-
-    printArray(arr, sz);
+    *sz = sizeInput;
+    printArray(arr, sizeInput);
 }
 
 // 2. Generate random array
-void generateRandomArray(int arr[], int sz, int upper_bound, int lower_bound)
+void generateRandomArray(int arr[], int *sz, int upper_bound, int lower_bound)
 {
-    for (int i = 1; i <= sz; i++)
+    int sizeInput;
+    printf("Hay nhap so luong phan tu cua day can sap xep: ");
+    cin >> sizeInput;
+
+    for (int i = 1; i <= sizeInput; i++)
         arr[i] = rand() % (upper_bound - lower_bound) + lower_bound;
-    printArray(arr, sz);
+    *sz = sizeInput;
+    printArray(arr, sizeInput);
 }
 
 // 3. Readfrom a file
-void readIntegersFromFile(const char *file_name, int arr[], int sz)
+void readIntegersFromFile(const char *file_name, int arr[], int *sz)
 {
     FILE *file = fopen(file_name, "r");
 
     int i = 1;
     int num;
+    fscanf(file, "%d", &num);
+    *sz = num;
     while (fscanf(file, "%d", &num) > 0)
     {
         arr[i] = num;
@@ -75,7 +85,7 @@ void insertionSort(int arr[], int num)
     {
         int last = arr[k];
         int j = k;
-        while (j > 0 && arr[j - 1] > last)
+        while (j > 1 && arr[j - 1] > last)
         {
             arr[j] = arr[j - 1];
             j--;
@@ -306,8 +316,6 @@ int main()
     int n;
     system("cls");
     srand((int)time(0));
-    printf("Hay nhap so luong phan tu cua day can sap xep: ");
-    scanf("%d", &n);
     int *arr = new int[n + 1];
     int uprBound, lwrBound;
     int choice = 0;
@@ -321,7 +329,7 @@ int main()
     {
         printf("\t\t\t ================CHON DAU VAO================\n");
         printf("\t\t\t |1. Tu nhap tu ban phim                    |\n");
-        printf("\t\t\t |2. Sinh ngau nhien mang                   |\n");
+        printf("\t\t\t |2. Sinh ngau nhien                        |\n");
         printf("\t\t\t |3. Doc tu file                            |\n");
         printf("\t\t\t =========CHON THUAT TOAN SAP XEP============\n");
         printf("\t\t\t |4. Sap xep chon                           |\n");
@@ -337,7 +345,7 @@ int main()
         switch (choice)
         {
         case 1:
-            readArrayFromKeyBoard(arr, n);
+            readArrayFromKeyBoard(arr, &n);
             break;
         case 2:
             printf("Nhap can tren va can duoi: ");
@@ -345,14 +353,15 @@ int main()
             scanf("%d", &uprBound);
             printf("Can duoi: ");
             scanf("%d", &lwrBound);
-            generateRandomArray(arr, n, uprBound, lwrBound);
+            generateRandomArray(arr, &n, uprBound, lwrBound);
             break;
         case 3:
             printf("\nNhap ten file: ");
             fflush(stdin);
             gets(fileName);
             fflush(stdin);
-            readIntegersFromFile(fileName, arr, n);
+            readIntegersFromFile(fileName, arr, &n);
+            printArray(arr, n);
             break;
         case 4:
             for (int i = 1; i <= n; i++)
@@ -360,18 +369,18 @@ int main()
                 arrForSort[i] = arr[i];
             }
             // selection sort
-            printf("Before: \n");
+            // printf("Before: \n");
             //  printArray(arrForSort, n);
-            clock_t start, end;
-            double cpu_time_used;
+            // clock_t start, end;
+            // double cpu_time_used;
 
-            start = clock();
+            // start = clock();
             selectionSort(arrForSort, n);
-            end = clock();
-            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time used: %f", 1000000 * cpu_time_used);
-            printf("After: \n");
-            //  printArray(arrForSort, n);
+            // end = clock();
+            // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+            // printf("Time used: %f", 1000000 * cpu_time_used);
+            // printf("After: \n");
+            printArray(arrForSort, n);
             // dont need to delete
             break;
         case 5:
@@ -380,15 +389,15 @@ int main()
             {
                 arrForSort[i] = arr[i];
             }
-            printf("Before: \n");
+            // printf("Before: \n");
             // printArray(arrForSort, n);
-            start = clock();
+            // start = clock();
             insertionSort(arrForSort, n);
-            end = clock();
-            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time used: %f", 1000000 * cpu_time_used);
-            printf("After: \n");
-            // printArray(arrForSort, n);
+            // end = clock();
+            // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+            // printf("Time used: %f", 1000000 * cpu_time_used);
+            // printf("After: \n");
+            printArray(arrForSort, n);
             // dont need to delete
             break;
         case 6:
@@ -397,15 +406,15 @@ int main()
             {
                 arrForSort[i] = arr[i];
             }
-            printf("Before: \n");
+            // printf("Before: \n");
             //   printArray(arrForSort, n);
-            start = clock();
+            // start = clock();
             bubbleSort(arrForSort, n);
-            end = clock();
-            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time used: %f", 1000000 * cpu_time_used);
-            printf("After: \n");
-            //  printArray(arrForSort, n);
+            // end = clock();
+            // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+            // printf("Time used: %f", 1000000 * cpu_time_used);
+            // printf("After: \n");
+            printArray(arrForSort, n);
             // dont need to delete
             break;
         case 7:
@@ -413,47 +422,47 @@ int main()
             {
                 arrForSort[i] = arr[i];
             }
-            printf("Before: \n");
+            // printf("Before: \n");
             //   printArray(arrForSort, n);
-            start = clock();
+            // start = clock();
             mergeSort(arrForSort, 1, n);
-            end = clock();
-            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time used: %f", 1000000 * cpu_time_used);
-            printf("After: \n");
+            // end = clock();
+            // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+            // printf("Time used: %f", 1000000 * cpu_time_used);
+            // printf("After: \n");
             // dont need to delete
-            //  printArray(arrForSort, n);
+            printArray(arrForSort, n);
             break;
         case 8:
             for (int i = 1; i <= n; i++)
             {
                 arrForSort[i] = arr[i];
             }
-            printf("Before: \n");
+            // printf("Before: \n");
             //  printArray(arrForSort, n);
-            start = clock();
+            // start = clock();
             quickSort(arrForSort, 1, n);
-            end = clock();
-            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time used: %f", 1000000 * cpu_time_used);
-            printf("After: \n");
+            // end = clock();
+            // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+            // printf("Time used: %f", 1000000 * cpu_time_used);
+            // printf("After: \n");
             // dont need to delete
-            //   printArray(arrForSort, n);
+            printArray(arrForSort, n);
             break;
         case 9:
             for (int i = 1; i <= n; i++)
             {
                 arrForSort[i] = arr[i];
             }
-            printf("Before: \n");
+            // printf("Before: \n");
             //  printArray(arrForSort, n);
-            start = clock();
+            // start = clock();
             heapSort(arrForSort, n);
-            end = clock();
-            cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-            printf("Time used: %f", 1000000 * cpu_time_used);
-            printf("After: \n");
-            // printArray(arrForSort, n);
+            // end = clock();
+            // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+            // printf("Time used: %f", 1000000 * cpu_time_used);
+            // printf("After: \n");
+            printArray(arrForSort, n);
             // dont need to delete
             break;
         case 10:
