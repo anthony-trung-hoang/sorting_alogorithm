@@ -314,7 +314,7 @@ int main()
     clock_t start, end;
     double cpu_time_used;
     ofstream outputFile;
-
+    string tenFile;
     int *arrForSort = new int[n + 1];
 
     do
@@ -386,7 +386,7 @@ int main()
                 selectionSort(arrForSort, n);
                 end = clock();
                 cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-                printf("Time used in ms: %f\n", 1000000 * cpu_time_used);
+                printf("Time used in ms: %f\n", 1000 * cpu_time_used);
                 break;
 
             case 2:
@@ -399,7 +399,7 @@ int main()
                 insertionSort(arrForSort, n);
                 end = clock();
                 cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-                printf("Time used in ms: %f\n", 1000000 * cpu_time_used);
+                printf("Time used in ms: %f\n", 1000 * cpu_time_used);
                 break;
 
             case 3:
@@ -412,7 +412,7 @@ int main()
                 bubbleSort(arrForSort, n);
                 end = clock();
                 cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-                printf("Time used in ms: %f\n", 1000000 * cpu_time_used);
+                printf("Time used in ms: %f\n", 1000 * cpu_time_used);
                 break;
 
             case 4:
@@ -424,7 +424,7 @@ int main()
                 mergeSort(arrForSort, 1, n);
                 end = clock();
                 cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-                printf("Time used in ms: %f\n", 1000000 * cpu_time_used);
+                printf("Time used in ms: %f\n", 1000 * cpu_time_used);
                 break;
 
             case 5:
@@ -436,7 +436,7 @@ int main()
                 quickSort(arrForSort, 1, n);
                 end = clock();
                 cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-                printf("Time used in ms: %f\n", 1000000 * cpu_time_used);
+                printf("Time used in ms: %f\n", 1000 * cpu_time_used);
                 break;
 
             case 6:
@@ -448,7 +448,7 @@ int main()
                 heapSort(arrForSort, n);
                 end = clock();
                 cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-                printf("Time used in ms: %f\n", 1000000 * cpu_time_used);
+                printf("Time used in ms: %f\n", 1000 * cpu_time_used);
                 break;
 
             case 7:
@@ -474,7 +474,9 @@ int main()
                 printArray(arrForSort, n);
                 break;
             case 2:
-                outputFile.open("sortedArray.txt");
+                printf("Nhap ten file\n");
+                cin >> fileName;
+                outputFile.open(fileName);
                 writeToFile(outputFile, arrForSort, n);
                 break;
             case 3:
