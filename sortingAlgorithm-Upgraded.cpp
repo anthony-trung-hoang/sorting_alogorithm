@@ -292,8 +292,6 @@ void buildHeap(int A[], int size)
 void heapSort(int A[], int size)
 {
     buildHeap(A, size);
-    // printf("\nFirst heap:\n");
-    //   printArray(A, size);
     printf("\n");
     for (int i = size; i > 1; i--)
     {
@@ -301,9 +299,6 @@ void heapSort(int A[], int size)
         A[1] = A[i];
         A[i] = temp;
         Heapify(A, 1, i - 1);
-        // printf("Step %d\n", size - i + 1);
-        // printArray(A, size);
-        // printf("\n");
     }
 }
 
