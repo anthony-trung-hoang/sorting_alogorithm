@@ -42,7 +42,7 @@ void generateRandomArray(int arr[], int *sz, int upper_bound, int lower_bound)
     *sz = sizeInput;
 }
 
-// 3. Readfrom a file
+// 3. Read from a file
 void readIntegersFromFile(const char *file_name, int arr[], int *sz)
 {
     FILE *file = fopen(file_name, "r");
@@ -159,20 +159,17 @@ void merge(int arr[], int l, int m, int r)
     int n1 = m - l + 1;
     int n2 = r - m;
 
-    /* Tạo các mảng tạm */
     int *L = new int[n1 + 1];
     int *R = new int[n2 + 1];
 
-    /* Copy dữ liệu sang các mảng tạm */
     for (i = 0; i < n1; i++)
         L[i] = arr[l + i];
     for (j = 0; j < n2; j++)
         R[j] = arr[m + 1 + j];
 
-    /* Gộp hai mảng tạm vừa rồi vào mảng arr*/
-    i = 0; // Khởi tạo chỉ số bắt đầu của mảng con đầu tiên
-    j = 0; // Khởi tạo chỉ số bắt đầu của mảng con thứ hai
-    k = l; // Khởi tạo chỉ số bắt đầu của mảng lưu kết quả
+    i = 0;
+    j = 0;
+    k = l;
     while (i < n1 && j < n2)
     {
         if (L[i] <= R[j])
@@ -188,7 +185,6 @@ void merge(int arr[], int l, int m, int r)
         k++;
     }
 
-    /* Copy các phần tử còn lại của mảng L vào arr nếu có */
     while (i < n1)
     {
         arr[k] = L[i];
@@ -196,7 +192,6 @@ void merge(int arr[], int l, int m, int r)
         k++;
     }
 
-    /* Copy các phần tử còn lại của mảng R vào arr nếu có */
     while (j < n2)
     {
         arr[k] = R[j];
@@ -213,6 +208,17 @@ void mergeSort(int arr[], int L, int R)
         mergeSort(arr, L, M);
         mergeSort(arr, M + 1, R);
         merge(arr, L, M, R);
+    }
+}
+
+void mergeSort2(int arr[], int L, int R, int size)
+{
+    if (L < R)
+    {
+        int M = (L + R) / 2;
+        mergeSort2(arr, L, M, size);
+        mergeSort2(arr, M + 1, R, size);
+        Tmerge(arr, L, M, R, size);
     }
 }
 

@@ -215,14 +215,14 @@ void merge(int arr[], int l, int m, int r)
     // printf("\n.....\n\n");
 }
 
-void mergeSort(int arr[], int L, int R)
+void mergeSort(int arr[], int L, int R, int size)
 {
     if (L < R)
     {
         int M = (L + R) / 2;
-        mergeSort(arr, L, M);
-        mergeSort(arr, M + 1, R);
-        merge(arr, L, M, R);
+        mergeSort(arr, L, M, size);
+        mergeSort(arr, M + 1, R, size);
+        Tmerge(arr, L, M, R, size);
     }
 }
 
@@ -425,7 +425,7 @@ int main()
             // printf("Before: \n");
             //   printArray(arrForSort, n);
             // start = clock();
-            mergeSort(arrForSort, 1, n);
+            mergeSort(arrForSort, 1, n, n);
             // end = clock();
             // cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
             // printf("Time used: %f", 1000000 * cpu_time_used);
